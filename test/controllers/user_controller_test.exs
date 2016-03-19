@@ -3,7 +3,8 @@ defmodule Api.UserControllerTest do
 
   alias Api.User
   @valid_attrs %{email: "some content", token: "some content"}
-  @invalid_attrs %{}
+  @invalid_attrs %{email: "", token: ""}
+  @default_user %User{email: "dog@iterable.io", token: "somecooltoken"}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -15,7 +16,7 @@ defmodule Api.UserControllerTest do
   end
 
   test "shows chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! @default_user
     conn = get conn, user_path(conn, :show, user)
     assert json_response(conn, 200)["data"] == %{"id" => user.id,
       "email" => user.email,
@@ -40,20 +41,20 @@ defmodule Api.UserControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! %User{email: "test@example.com", token: "somecooltokenrighthere"}
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(User, @valid_attrs)
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! @default_user
     conn = put conn, user_path(conn, :update, user), user: @invalid_attrs
     assert json_response(conn, 422)["errors"] != %{}
   end
 
   test "deletes chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! @default_user
     conn = delete conn, user_path(conn, :delete, user)
     assert response(conn, 204)
     refute Repo.get(User, user.id)

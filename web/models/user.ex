@@ -2,8 +2,8 @@ defmodule Api.User do
   use Api.Web, :model
 
   schema "users" do
-    field :email, :string
-    field :token, :string
+    field :email, :string, null: false
+    field :token, :string, null: false
 
     timestamps
   end

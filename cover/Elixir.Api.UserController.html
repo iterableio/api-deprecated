@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>cover/Elixir.Api.UserController.html</title>
+</head><body style='background-color: white; color: black'>
+<pre>
+File generated from /Users/ross/dev/iterableio/api/web/controllers/user_controller.ex by COVER 2016-03-19 at 14:43:13
+
+****************************************************************************
+
+<font color=red>     0..|  defmodule Api.UserController do</font>
+        |    use Api.Web, :controller
+        |  
+        |    alias Api.User
+        |  
+        |    plug :scrub_params, "user" when action in [:create, :update]
+        |  
+        |    def index(conn, _params) do
+        |      users = Repo.all(User)
+        |      render(conn, "index.json", users: users)
+        |    end
+        |  
+        |    def create(conn, %{"user" =&gt; user_params}) do
+        |      changeset = User.changeset(%User{}, user_params)
+        |  
+        |      case Repo.insert(changeset) do
+        |        {:ok, user} -&gt;
+        |          conn
+        |          |&gt; put_status(:created)
+        |          |&gt; put_resp_header("location", user_path(conn, :show, user))
+        |          |&gt; render("show.json", user: user)
+        |        {:error, changeset} -&gt;
+        |          conn
+        |          |&gt; put_status(:unprocessable_entity)
+        |          |&gt; render(Api.ChangesetView, "error.json", changeset: changeset)
+        |      end
+        |    end
+        |  
+        |    def show(conn, %{"id" =&gt; id}) do
+        |      user = Repo.get!(User, id)
+        |      render(conn, "show.json", user: user)
+        |    end
+        |  
+        |    def update(conn, %{"id" =&gt; id, "user" =&gt; user_params}) do
+        |      user = Repo.get!(User, id)
+        |      changeset = User.changeset(user, user_params)
+        |  
+        |      case Repo.update(changeset) do
+        |        {:ok, user} -&gt;
+        |          render(conn, "show.json", user: user)
+        |        {:error, changeset} -&gt;
+        |          conn
+        |          |&gt; put_status(:unprocessable_entity)
+        |          |&gt; render(Api.ChangesetView, "error.json", changeset: changeset)
+        |      end
+        |    end
+        |  
+        |    def delete(conn, %{"id" =&gt; id}) do
+        |      user = Repo.get!(User, id)
+        |  
+        |      # Here we use delete! (with a bang) because we expect
+        |      # it to always work (and if it does not, it will raise).
+        |      Repo.delete!(user)
+        |  
+        |      send_resp(conn, :no_content, "")
+        |    end
+        |  end
+</pre>
+</body>
+</html>
