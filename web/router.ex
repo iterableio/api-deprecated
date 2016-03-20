@@ -13,10 +13,16 @@ defmodule Api.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", Api do
+  scope "/api/v1", Api do
     pipe_through :api
 
     get "/", IndexController, :show
-    resources "/user", UserController, except: [:new, :edit]
+
+    scope "/users" do
+      get    "/:id", UserController, :getUser
+      post   "/",    UserController, :createUser
+      put    "/:id", UserController, :updateUser
+      delete "/:id", UserController, :deleteUser
+    end
   end
 end
