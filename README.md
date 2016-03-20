@@ -1,4 +1,5 @@
 # Api
+[![Circle CI](https://circleci.com/gh/iterableio/api.svg?style=shield)](https://circleci.com/gh/iterableio/api)
 
 To start your Phoenix app:
 
