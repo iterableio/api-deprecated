@@ -1,19 +1,12 @@
-machine:
-  environment:
-    PATH: "$HOME/.asdf/bin:$HOME/.asdf/shims:$PATH"
-    erlang_version: '18.0'
-    elixir_version: '1.2.3'
-
 dependencies:
-  cache_directories:
-    - ~/.asdf
   pre:
-    - if ! asdf | grep version; then git clone https://github.com/asdf-vm/asdf.git ~/.asdf; fi
-    - asdf plugin-add erlang https://github.com/asdf-vm/asdf-erlang.git
-    - asdf plugin-add elixir https://github.com/asdf-vm/asdf-elixir.git
-    - asdf install erlang ${erlang_version}
-    - asdf install elixir ${elixir_version}
-    - yes | mix deps.get
+    - bin/ci/prepare.sh
+  cache_directories:
+    - ~/dependencies
+    - ~/.mix
+    - _build
+    - deps
+
 test:
   override:
-    - mix test --no-start --trace
+    - bin/ci/tests.sh
