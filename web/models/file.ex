@@ -1,11 +1,9 @@
 defmodule Api.File do
   use Api.Web, :model
 
-  @primary_key {:id, :binary_id, autogenerate: true}
-
   schema "files" do
-    field :path, :string, null: false
-    field :name, :string, null: false
+    field :path, :string
+    field :name, :string
     belongs_to :user, Api.User
 
     timestamps
