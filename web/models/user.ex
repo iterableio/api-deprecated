@@ -3,13 +3,13 @@ defmodule Api.User do
 
   schema "users" do
     field :email, :string, null: false
-    field :token, :string, null: false
+    field :token, Ecto.UUID, default: Ecto.UUID.generate()
 
     timestamps
   end
 
-  @required_fields ~w(email token)
-  @optional_fields ~w()
+  @required_fields ~w(email)
+  @optional_fields ~w(token)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
