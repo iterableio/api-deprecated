@@ -3,7 +3,7 @@ defmodule Api.UserTest do
 
   alias Api.User
 
-  @valid_attrs %{email: "some content", token: "some content"}
+  @valid_attrs %{email: "bob@iterable.io"}
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

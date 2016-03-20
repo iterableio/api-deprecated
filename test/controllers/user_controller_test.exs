@@ -2,9 +2,9 @@ defmodule Api.UserControllerTest do
   use Api.ConnCase
 
   alias Api.User
-  @valid_attrs %{email: "some content", token: "some content"}
-  @invalid_attrs %{email: "", token: ""}
-  @default_user %User{email: "dog@iterable.io", token: "somecooltoken"}
+  @valid_attrs %{email: "some content"}
+  @invalid_attrs %{email: ""}
+  @default_user %User{email: "dog@iterable.io"}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -41,7 +41,7 @@ defmodule Api.UserControllerTest do
   end
 
   test "updates and renders chosen resource when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{email: "test@example.com", token: "somecooltokenrighthere"}
+    user = Repo.insert! @default_user
     conn = put conn, user_path(conn, :update, user), user: @valid_attrs
     assert json_response(conn, 200)["data"]["id"]
     assert Repo.get_by(User, @valid_attrs)
