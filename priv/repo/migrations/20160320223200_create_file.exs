@@ -5,7 +5,7 @@ defmodule Api.Repo.Migrations.CreateFile do
     create table(:files) do
       add :path, :string, null: false
       add :name, :string, null: false
-      add :user_id, references(:users, on_delete: :nothing), null: false
+      add :user_id, references(:users, on_delete: :delete_all), null: false
 
       timestamps
     end
