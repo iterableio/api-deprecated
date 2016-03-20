@@ -2,7 +2,7 @@ defmodule Api.User do
   use Api.Web, :model
 
   schema "users" do
-    field :email, :string, null: false
+    field :email, :string
     field :token, Ecto.UUID, default: Ecto.UUID.generate()
 
     timestamps
