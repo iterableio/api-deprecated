@@ -3,7 +3,7 @@ defmodule Api.UserController do
 
   alias Api.User
 
-  plug :scrub_params, "user" when action in [:create, :update]
+  plug :scrub_params, "user" when action in [:createUser, :updateUser]
 
   def createUser(conn, %{"user" => user_params}) do
     changeset = User.changeset(%User{}, user_params)
@@ -12,7 +12,7 @@ defmodule Api.UserController do
       {:ok, user} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", user_path(conn, :show, user))
+        |> put_resp_header("location", user_path(conn, :getUser, user))
         |> render("show.json", user: user)
       {:error, changeset} ->
         conn

@@ -15,6 +15,10 @@ erl_crash.dump
 # variables.
 /config/prod.secret.exs
 
-#Swaps
+# Vim
 *.swo
 *.swp
+
+# Emacs
+\#*\#
+.\#*
