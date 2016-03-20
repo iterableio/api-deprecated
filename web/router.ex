@@ -16,6 +16,7 @@ defmodule Api.Router do
   scope "/api", Api do
     pipe_through :api
 
+    get "/", IndexController, :show
     resources "/user", UserController, except: [:new, :edit]
   end
 end
