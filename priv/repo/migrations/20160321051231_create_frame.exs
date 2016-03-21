@@ -3,7 +3,7 @@ defmodule Api.Repo.Migrations.CreateFrame do
 
   def change do
     create table(:frames) do
-      add :content, :map, null: false
+      add :content, :map
       add :iteration, :integer, null: false
       add :editor, :string
       add :frame_taken, :datetime, null: false

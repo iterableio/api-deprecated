@@ -3,8 +3,9 @@ defmodule Api.Repo.Migrations.CreateMetric do
 
   def change do
     create table(:metrics) do
-      add :context, :map, null: false
-      add :assets, :map, null: false
+      add :type, :string, null: false
+      add :context, :map
+      add :assets, :map
       add :user_id, references(:users, on_delete: :delete_all), null: false
       add :processed_at, :datetime, null: false
 

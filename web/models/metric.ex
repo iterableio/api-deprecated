@@ -2,6 +2,7 @@ defmodule Api.Metric do
   use Api.Web, :model
 
   schema "metrics" do
+    field :type, :string
     field :context, :map
     field :assets, :map
     belongs_to :user, Api.User
@@ -10,7 +11,7 @@ defmodule Api.Metric do
     timestamps
   end
 
-  @required_fields ~w(context assets user_id processed_at)
+  @required_fields ~w(type context assets user_id processed_at)
   @optional_fields ~w()
 
   @doc """
