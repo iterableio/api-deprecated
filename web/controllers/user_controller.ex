@@ -3,6 +3,8 @@ defmodule Api.UserController do
 
   alias Api.User
 
+  plug Api.Plug.Authentication when action in [:getUser, :updateUser, :deleteUser]
+
   plug :scrub_params, "user" when action in [:createUser, :updateUser]
 
   def createUser(conn, %{"user" => user_params}) do
