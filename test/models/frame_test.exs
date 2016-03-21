@@ -21,12 +21,4 @@ defmodule Api.FrameTest do
     changeset = Frame.changeset(%Frame{}, @invalid_attrs)
     refute changeset.valid?
   end
-
-  test "read and write" do
-    user = Repo.insert! %Api.User{email: "yolo@swag.org"}
-    file = Repo.insert! %Api.File{name: "a", path: "b", user_id: user.id}
-    frame = Repo.insert! %Api.Frame{content: %{"a": "b"}, editor: "vim", frame_taken: Ecto.DateTime.utc(), iteration: 0, file_id: file.id}
-    frame = Repo.preload frame, :file
-    IO.inspect frame
-  end
 end
