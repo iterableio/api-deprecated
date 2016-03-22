@@ -3,7 +3,7 @@ defmodule Api.User do
 
   schema "users" do
     field :email, :string
-    field :token, Ecto.UUID, default: Ecto.UUID.generate()
+    field :token, Ecto.UUID, autogenerate: true
 
     timestamps
   end
