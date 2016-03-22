@@ -6,12 +6,11 @@ defmodule Api.Metric do
     field :context, :map
     field :assets, :map
     belongs_to :user, Api.User
-    field :processed_at, Ecto.DateTime
 
     timestamps
   end
 
-  @required_fields ~w(type context assets user_id processed_at)
+  @required_fields ~w(type context assets user_id)
   @optional_fields ~w()
 
   @doc """
