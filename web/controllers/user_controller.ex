@@ -1,7 +1,11 @@
 defmodule Api.UserController do
   use Api.Web, :controller
 
+  import Api.Plug.Util, only: [get_user: 1]
+
   alias Api.User
+
+  plug Api.Plug.Authentication when action in [:getUser, :updateUser, :deleteUser]
 
   plug :scrub_params, "user" when action in [:createUser, :updateUser]
 
@@ -22,8 +26,16 @@ defmodule Api.UserController do
   end
 
   def getUser(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.json", user: user)
+    current_user = get_user(conn)
+
+    case Repo.get(User, id) do
+      target when target === current_user ->
+        render(conn, "show.json", user: target)
+      _ ->
+        conn
+        |> resp(401, "")
+        |> halt
+    end
   end
 
   def updateUser(conn, %{"id" => id, "user" => user_params}) do
