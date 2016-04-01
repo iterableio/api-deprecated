@@ -21,11 +21,6 @@ defmodule Api.UserControllerTest do
       "token" => user.token}
   end
 
-  test "does not get user and instead throw error when id is nonexistent", %{conn: conn} do
-    conn = get conn, user_path(conn, :getUser, -1)
-    assert response(conn, 401)
-  end
-
   test "creates and renders user when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :createUser), user: @valid_attrs
     assert json_response(conn, 201)["data"]["id"]
